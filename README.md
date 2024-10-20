@@ -13,5 +13,8 @@ Gerekli kütüphaneleri yüklemek için şu komutu kullanabilirsiniz:
 - **Geliştirici:** @azizcanbalci
 - **Tarih:** Ekim 2024
 - **Ders:** Bilgisayar Ağları
+- **Ad-Soyad:** Azizcan Balcı
+- **NO:** 22370031045
+- **Öğretim Üyesi:** Hasan Serdar @hasantalya7
 
  
