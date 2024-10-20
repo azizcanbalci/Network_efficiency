@@ -15,6 +15,6 @@ Gerekli kütüphaneleri yüklemek için şu komutu kullanabilirsiniz:
 - **Ders:** Bilgisayar Ağları
 - **Ad-Soyad:** Azizcan Balcı
 - **NO:** 22370031045
-- **Öğretim Üyesi:** Hasan Serdar @hasantalya7
+
 
  
