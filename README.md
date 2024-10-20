@@ -10,8 +10,8 @@ Gerekli kütüphaneleri yüklemek için şu komutu kullanabilirsiniz:
 
 ```pip install  scapy psutil ```
 # Hakkında
-### Geliştirici:'''@azizcanbalci'''
-### Tarih:Ekim 2024
-### Ders: Bilgisayar Ağları
+## Geliştirici:@azizcanbalci
+## Tarih:Ekim 2024
+## Ders: Bilgisayar Ağları
 
  
