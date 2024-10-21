@@ -5,9 +5,8 @@ import subprocess
 import time
 import platform
 import re
-import socket  
-from scapy.all import sniff  
-
+import socket
+from scapy.all import sniff
 
 def hesapla_verimlilik(bw, latency, packet_loss, congestion):
     return (bw * 0.4) + ((100 - latency) * 0.3) + ((100 - packet_loss) * 0.2) + ((100 - congestion) * 0.1)
@@ -56,7 +55,7 @@ def get_bandwidth():
         print(f"Bant genişliği alınamadı: {e}")
         return None
 
-# Tıkanıklık oranını hesaplama
+
 def get_congestion():
     try:
         net1 = psutil.net_io_counters()
@@ -95,7 +94,7 @@ def packet_callback(packet):
     src_ip = packet[1].src  
     dst_ip = packet[1].dst  
     label_packet_info.config(text=f"Protokol: {protocol}, Kaynak IP: {src_ip}, Hedef IP: {dst_ip}")
-    label_packet_count.config(text=f"Dinlenen Paket Sayısı: {packet_count}")  # Paket sayısını göster
+    label_packet_count.config(text=f"Dinlenen Paket Sayısı: {packet_count}")  
 
 
 def start_sniffing():
@@ -104,6 +103,26 @@ def start_sniffing():
     label_packet_info.config(text="Paketleri dinlemeye başlıyor...")
     label_packet_count.config(text="Dinlenen Paket Sayısı: 0") 
     sniff(prn=packet_callback, filter="ip", store=0, timeout=10)  
+
+
+def draw_graphs(bandwidth, latency, packet_loss, congestion):
+    canvas.delete("all")
+    
+    # Bant genişliği çubuğu
+    canvas.create_rectangle(50, 250 - bandwidth, 100, 250, fill="blue")
+    canvas.create_text(75, 260, text=f"Bant Genişliği\n{bandwidth:.2f} KB/s", fill="blue", font=("Helvetica", 10))
+    
+    # Gecikme çubuğu
+    canvas.create_rectangle(150, 250 - latency, 200, 250, fill="red")
+    canvas.create_text(175, 260, text=f"Gecikme\n{latency:.2f} ms", fill="red", font=("Helvetica", 10))
+    
+    # Paket kaybı çubuğu
+    canvas.create_rectangle(250, 250 - packet_loss, 300, 250, fill="green")
+    canvas.create_text(275, 260, text=f"Paket Kaybı\n{packet_loss:.2f} %", fill="green", font=("Helvetica", 10))
+    
+    # Tıkanıklık çubuğu
+    canvas.create_rectangle(350, 250 - congestion, 400, 250, fill="orange")
+    canvas.create_text(375, 260, text=f"Tıkanıklık\n{congestion:.2f} %", fill="orange", font=("Helvetica", 10))
 
 
 def hesapla_ve_dinle():
@@ -126,7 +145,9 @@ def hesapla_ve_dinle():
     label_verimlilik.config(text=f"Ağ Verimliliği: {verimlilik:.2f} %")
     label_local_ip.config(text=f"Kendi IP Adresiniz: {local_ip}")
 
-    
+    # Grafiksel verileri göster
+    draw_graphs(bandwidth, latency, packet_loss, congestion)
+
     start_sniffing()
 
 
@@ -158,9 +179,11 @@ label_packet_info.pack(pady=5)
 label_packet_count = tk.Label(root, text="Dinlenen Paket Sayısı: 0")  
 label_packet_count.pack(pady=5)
 
+# Canvas widget'ı ile grafik gösterimi
+canvas = tk.Canvas(root, width=500, height=300, bg="white")
+canvas.pack(pady=20)
 
 hesapla_dinle_button = tk.Button(root, text="Ağ Verimliliğini Hesapla ve Dinlemeyi Başlat", command=hesapla_ve_dinle)
 hesapla_dinle_button.pack(pady=20)
-
 
 root.mainloop()
